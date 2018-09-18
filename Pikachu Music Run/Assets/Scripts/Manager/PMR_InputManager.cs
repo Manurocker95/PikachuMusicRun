@@ -21,7 +21,10 @@ namespace PikachuMusicRun
         /// <summary>
         /// Jump keycode - Serialized for access in inspector
         /// </summary>
-        [SerializeField] private KeyCode[] m_jumpKeyCodes = { KeyCode.Space, KeyCode.Joystick1Button0 };
+        [SerializeField] private KeyCode[] m_jumpKeyCodes = { KeyCode.Space, KeyCode.Joystick1Button0 };        /// <summary>
+        /// Jump keycode - Serialized for access in inspector
+        /// </summary>
+        [SerializeField] private KeyCode[] m_introSkipKeyCodes = { KeyCode.Return, KeyCode.Joystick1Button0 };
 
         // Use this for initialization
         void Start()
@@ -50,6 +53,28 @@ namespace PikachuMusicRun
         public static bool PressedJumpButton()
         {
             return Instance._PressedJumpButton();
+        }        
+        /// <summary>
+        /// Did we press jump button?
+        /// </summary>
+        /// <returns></returns>
+        private bool _PressedSkipButton()
+        {
+            foreach (KeyCode k in m_introSkipKeyCodes)
+            {
+                if (Input.GetKeyDown(k))
+                    return true;
+            }
+
+            return false;
+        }
+        /// <summary>
+        /// Static method so it can be easier to access.
+        /// </summary>
+        /// <returns></returns>
+        public static bool PressedSkipButton()
+        {
+            return Instance._PressedSkipButton();
         }
     }
 

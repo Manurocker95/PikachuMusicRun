@@ -21,8 +21,8 @@ namespace PikachuMusicRun.Setup
 
         public static class PlayerPrefs
         {
-            public const string LAST_LANGUAGE = "lastLanguagePP";
-            public const string MAIN_VOLUME = "mainVolumePP";
+            public const string LAST_LANGUAGE = "lastLanguagePMR_PP";
+            public const string MAIN_VOLUME = "mainVolumePMR_PP";
         }
     }
 }

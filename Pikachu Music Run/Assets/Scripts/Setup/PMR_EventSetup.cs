@@ -26,6 +26,13 @@ namespace PikachuMusicRun.Setup
         {
             public const string TRANSLATE_TEXTS = "translateTextsEvent";
         }
+
+        public static class Menu
+        {
+            public const string INIT = "InitMenuEvent";
+        }
+
+
     }
 
 }

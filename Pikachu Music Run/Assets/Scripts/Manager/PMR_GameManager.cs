@@ -38,7 +38,8 @@ namespace PikachuMusicRun.Game
 
         void StopAllListeners()
         {
-            PMR_EventManager.StopListening(PMR_EventSetup.Game.PAUSE_GAME, ResetGame);
+            if (PMR_EventManager.Instance)
+                PMR_EventManager.StopListening(PMR_EventSetup.Game.PAUSE_GAME, ResetGame);
         }
 
         public void PauseAndUnpause()

@@ -75,10 +75,13 @@ namespace PikachuMusicRun
 
         void StopAllListeners()
         {
-            PMR_EventManager.StopListening(PMR_EventSetup.Game.GO_TO_GAME, PlayGameBGM);
-            PMR_EventManager.StopListening(PMR_EventSetup.Game.GO_TO_MENU, PlayMenuBGM);
-            PMR_EventManager.StopListening(PMR_EventSetup.Game.PAUSE_GAME, CheckPause);
-            PMR_EventManager.StopListening(PMR_EventSetup.Game.UNPAUSE_GAME, CheckUnPause);
+            if (PMR_EventManager.Instance)
+            {
+                PMR_EventManager.StopListening(PMR_EventSetup.Game.GO_TO_GAME, PlayGameBGM);
+                PMR_EventManager.StopListening(PMR_EventSetup.Game.GO_TO_MENU, PlayMenuBGM);
+                PMR_EventManager.StopListening(PMR_EventSetup.Game.PAUSE_GAME, CheckPause);
+                PMR_EventManager.StopListening(PMR_EventSetup.Game.UNPAUSE_GAME, CheckUnPause);
+            }
         }
 
         private void Update()

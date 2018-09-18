@@ -1,0 +1,8 @@
+<?xml version='1.0'?>
+<NewDataSet>
+  <Language>Spanish</Language>
+  <Table1>
+    <Key>loadingText</Key>
+    <Text>Cargando...</Text>
+  </Table1> 
+</NewDataSet>

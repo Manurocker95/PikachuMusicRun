@@ -58,7 +58,7 @@ namespace PikachuMusicRun.Localization
         /// <summary>
         /// Awake method for singleton initialization
         /// </summary>
-        private new void Awake()
+        protected override void Awake()
         {
             base.Awake();
             // We initialize language data on start so we can call these methods in other classes Start()
@@ -107,6 +107,12 @@ namespace PikachuMusicRun.Localization
             }
 
             int m_currentLanguageIndex = PlayerPrefs.GetInt(PMR_GameSetup.PlayerPrefs.LAST_LANGUAGE, -1);
+
+            if (m_currentLanguageIndex >= m_activelanguages.Count)
+            {
+                m_currentLanguageIndex = 0;
+                PlayerPrefs.SetInt(PMR_GameSetup.PlayerPrefs.LAST_LANGUAGE, -1);
+            }
 
             if (m_currentLanguageIndex != -1)
             {
