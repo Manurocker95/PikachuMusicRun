@@ -43,6 +43,8 @@ namespace PikachuMusicRun.Setup
 
             public const string RESUME = "resumeText";
             public const string BACK_TO_MENU = "backToMenuText";
+            public const string PRESS_START = "pressStartText";
+            public const string BEST_SCORE = "bestScoreText";
 
         }
     }
