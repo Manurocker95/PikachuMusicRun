@@ -16,14 +16,28 @@ namespace PikachuMusicRun.Game
     {
         [SerializeField] private int m_score;
         [SerializeField] private bool m_pause = false;
+        [SerializeField] private DIFICULTY m_difficulty = DIFICULTY.DIFFICULT;
+        [SerializeField] private int m_samples = 0;
+        [SerializeField] private float[] m_samplesArray;
 
         public bool Paused { get { return m_pause; } }
-
+        
         // Use this for initialization
         void Start()
         {
             StartAllListeners();
-
+            switch (m_difficulty)
+            {
+                case DIFICULTY.EASY:
+                    m_samples = PMR_GameSetup.Dificulty_Samples.EASY;
+                    break;
+                case DIFICULTY.MID:
+                    m_samples = PMR_GameSetup.Dificulty_Samples.MID;
+                    break;
+                case DIFICULTY.DIFFICULT:
+                    m_samples = PMR_GameSetup.Dificulty_Samples.DIFFICULT;
+                    break;
+            }
         }
         private void OnDestroy()
         {
@@ -56,7 +70,30 @@ namespace PikachuMusicRun.Game
         {
             m_pause = false;
             m_score = 0;
+            InitSpectrum();
         }
+
+        public void InitSpectrum()
+        {
+            PMR_AudioManager.Instance.PlayGameBGM();
+
+            m_samplesArray = PMR_AudioManager.Instance.SetBGMSpectrum(m_samples);
+            string str;
+
+            for (int i = 0; i < m_samplesArray.Length; i++)
+            {
+                str = m_samplesArray[i].ToString();
+
+                if (str.Length > 0)
+                {
+                    str = (str.Length - 4 > 0) ? str.Remove(str.Length - 4) : str.Remove(0);
+                    m_samplesArray[i] = float.Parse(str);
+                }
+
+                PMR_NoteSpawner.Instance.InstantiatePrefab(m_samplesArray[i]);
+            }
+        }
+
         /// <summary>
         /// Add score to the current one
         /// </summary>

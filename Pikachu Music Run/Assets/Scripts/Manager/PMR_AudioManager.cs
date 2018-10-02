@@ -39,15 +39,7 @@ namespace PikachuMusicRun
         /// If we want to stop the music when pausing or not
         /// </summary>
         [SerializeField] private bool m_stopSourcesOnPause;
-        /// <summary>
-        /// Audio spectrum for modifying note up position
-        /// </summary>
-        [SerializeField] private float[] m_audioSpectrum;
-        /// <summary>
-        /// Property
-        /// </summary>
-        public float[] Spectrum { get { return m_audioSpectrum; } }
-
+        [SerializeField] float[] m_spectrumArray;
         #endregion
 
         #region Monobehaviour
@@ -66,7 +58,6 @@ namespace PikachuMusicRun
 
         void StartAllListeners()
         {
-            PMR_EventManager.StartListening(PMR_EventSetup.Game.GO_TO_GAME, PlayGameBGM);
             PMR_EventManager.StartListening(PMR_EventSetup.Game.GO_TO_MENU, PlayMenuBGM);
             PMR_EventManager.StartListening(PMR_EventSetup.Game.PAUSE_GAME, CheckPause);
             PMR_EventManager.StartListening(PMR_EventSetup.Game.UNPAUSE_GAME, CheckUnPause);
@@ -77,7 +68,6 @@ namespace PikachuMusicRun
         {
             if (PMR_EventManager.Instance)
             {
-                PMR_EventManager.StopListening(PMR_EventSetup.Game.GO_TO_GAME, PlayGameBGM);
                 PMR_EventManager.StopListening(PMR_EventSetup.Game.GO_TO_MENU, PlayMenuBGM);
                 PMR_EventManager.StopListening(PMR_EventSetup.Game.PAUSE_GAME, CheckPause);
                 PMR_EventManager.StopListening(PMR_EventSetup.Game.UNPAUSE_GAME, CheckUnPause);
@@ -86,8 +76,13 @@ namespace PikachuMusicRun
 
         private void Update()
         {
-            if (!PMR_GameManager.Instance.Paused)
-                AudioListener.GetOutputData(m_audioSpectrum, 0);
+        }
+
+        public float [] SetBGMSpectrum(int samples)
+        {
+            m_spectrumArray = new float[samples];
+            m_bgmSource.GetSpectrumData(m_spectrumArray, 0, FFTWindow.Rectangular);
+            return m_spectrumArray;
         }
 
         /// <summary>
@@ -112,7 +107,7 @@ namespace PikachuMusicRun
         /// <summary>
         /// Play Game BGM when going to game scene
         /// </summary>
-        void PlayGameBGM()
+        public void PlayGameBGM()
         {
             m_bgmSource.clip = Resources.Load<AudioClip>(PMR_AudioSetup.GAME_BGM);
             m_bgmSource.Play();
@@ -120,7 +115,7 @@ namespace PikachuMusicRun
         /// <summary>
         /// Play Menu BGM when going to menu scene
         /// </summary>
-        void PlayMenuBGM()
+        public void PlayMenuBGM()
         {
             m_bgmSource.clip = Resources.Load<AudioClip>(PMR_AudioSetup.MENU_BGM);
             m_bgmSource.Play();

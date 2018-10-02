@@ -4,5 +4,69 @@
   <Table1>
     <Key>loadingText</Key>
     <Text>Cargando...</Text>
-  </Table1> 
+  </Table1>
+  <Table1>
+    <Key>continueText</Key>
+    <Text>Continuar</Text>
+  </Table1>
+  <Table1>
+    <Key>newGameText</Key>
+    <Text>Nueva Partida</Text>
+  </Table1>
+  <Table1>
+    <Key>optionsText</Key>
+    <Text>Opciones</Text>
+  </Table1>
+  <Table1>
+    <Key>creditsText</Key>
+    <Text>Créditos</Text>
+  </Table1>
+  <Table1>
+    <Key>exitText</Key>
+    <Text>Salir</Text>
+  </Table1>
+  <Table1>
+    <Key>optionsTitleText</Key>
+    <Text>OPCIONES</Text>
+  </Table1>
+  <Table1>
+    <Key>optionsVolumeText</Key>
+    <Text>Volumen</Text>
+  </Table1>
+  <Table1>
+    <Key>optionsGraphicsText</Key>
+    <Text>Gráficos</Text>
+  </Table1>
+  <Table1>
+    <Key>backText</Key>
+    <Text>Volver</Text>
+  </Table1>
+  <Table1>
+    <Key>languageText</Key>
+    <Text>Idioma</Text>
+  </Table1>
+  <Table1>
+    <Key>creditsTitleText</Key>
+    <Text>CRÉDITOS</Text>
+  </Table1>
+  <Table1>
+    <Key>creditsMainText</Key>
+    <Text>Créditos</Text>
+  </Table1>
+  <Table1>
+    <Key>resumeText</Key>
+    <Text>Continuar</Text>
+  </Table1>
+  <Table1>
+    <Key>backToMenuText</Key>
+    <Text>Volver al menú</Text>
+  </Table1>
+  <Table1>
+    <Key>pressStartText</Key>
+    <Text>Pulsa Enter</Text>
+  </Table1>
+  <Table1>
+    <Key>bestScoreText</Key>
+    <Text>Mejor Puntuación</Text>
+  </Table1>
 </NewDataSet>

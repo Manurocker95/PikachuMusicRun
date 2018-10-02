@@ -24,5 +24,20 @@ namespace PikachuMusicRun.Setup
             public const string LAST_LANGUAGE = "lastLanguagePMR_PP";
             public const string MAIN_VOLUME = "mainVolumePMR_PP";
         }
+
+        public static class Dificulty_Samples
+        {
+            public const int EASY = 256;
+            public const int MID = 512;
+            public const int DIFFICULT = 1024;
+        }
     }
+
+    public enum DIFICULTY
+    {
+        EASY,
+        MID,
+        DIFFICULT
+    }
+   
 }

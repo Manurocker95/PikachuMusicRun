@@ -29,14 +29,27 @@ namespace PikachuMusicRun.Menu
         [SerializeField] private Text m_creditsText;
         [SerializeField] private Text m_exitText;
 
+        private MENU_STATE m_state;
+
         /// <summary>
         /// On Start we start all listeners 
         /// </summary>
         // Use this for initialization
         void Start()
         {
+            m_state = MENU_STATE.INIT;
             TranslateTexts();
             StartAllListeners();
+        }
+        private void Update()
+        {
+            if (m_state == MENU_STATE.PRESS_START)
+            {
+                if (PMR_InputManager.PressedJumpButton())
+                {
+                    ShowMainAnimation();
+                }
+            }
         }
         /// <summary>
         /// On destroy we stop listening
@@ -77,6 +90,7 @@ namespace PikachuMusicRun.Menu
         /// </summary>
         void InitMenu()
         {
+            m_state = MENU_STATE.INIT;
             PMR_EventManager.TriggerEvent(PMR_EventSetup.Game.GO_TO_MENU);
             m_mainAnimator.SetTrigger("init");
         }
@@ -85,7 +99,12 @@ namespace PikachuMusicRun.Menu
         /// </summary>
         public void StartMenu()
         {
+            m_state = MENU_STATE.PRESS_START;
             m_pressStartGO.SetActive(true);
+        }
+        public void ShowMainAnimation()
+        {
+            m_mainAnimator.SetTrigger("showMain");
         }
         /// <summary>
         /// Pressed a button in any of the panels
@@ -126,6 +145,7 @@ namespace PikachuMusicRun.Menu
         /// </summary>
         public void ShowOptions()
         {
+            m_state = MENU_STATE.OPTIONS;
             m_optionsGroup.SetActive(true);
             m_creditsGroup.SetActive(false);
             m_mainGroup.SetActive(false);
@@ -135,6 +155,7 @@ namespace PikachuMusicRun.Menu
         /// </summary>
         public void ShowCredits()
         {
+            m_state = MENU_STATE.CREDITS;
             m_optionsGroup.SetActive(false);
             m_creditsGroup.SetActive(true);
             m_mainGroup.SetActive(false);
@@ -144,6 +165,7 @@ namespace PikachuMusicRun.Menu
         /// </summary>
         public void ShowMain()
         {
+            m_state = MENU_STATE.MAIN;
             m_optionsGroup.SetActive(false);
             m_creditsGroup.SetActive(false);
             m_mainGroup.SetActive(true);
@@ -157,4 +179,12 @@ namespace PikachuMusicRun.Menu
         }
     }
 
+    public enum MENU_STATE
+    {
+        INIT,
+        PRESS_START,
+        MAIN,
+        OPTIONS,
+        CREDITS
+    }
 }
