@@ -79,6 +79,7 @@ namespace PikachuMusicRun.Game
 
             m_samplesArray = PMR_AudioManager.Instance.SetBGMSpectrum(m_samples);
             string str;
+            float newValue = 0f;
 
             for (int i = 0; i < m_samplesArray.Length; i++)
             {
@@ -87,7 +88,12 @@ namespace PikachuMusicRun.Game
                 if (str.Length > 0)
                 {
                     str = (str.Length - 4 > 0) ? str.Remove(str.Length - 4) : str.Remove(0);
-                    m_samplesArray[i] = float.Parse(str);
+                    newValue = float.Parse(str);
+
+                    if (newValue > 3)
+                        newValue -= 2f;
+
+                    m_samplesArray[i] = newValue;
                 }
 
                 PMR_NoteSpawner.Instance.InstantiatePrefab(m_samplesArray[i]);

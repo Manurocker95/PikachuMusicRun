@@ -45,8 +45,9 @@ namespace PikachuMusicRun.Menu
         {
             if (m_state == MENU_STATE.PRESS_START)
             {
-                if (PMR_InputManager.PressedJumpButton())
+                if (PMR_InputManager.PressedSkipButton())
                 {
+                    m_state = MENU_STATE.MAIN;
                     ShowMainAnimation();
                 }
             }
