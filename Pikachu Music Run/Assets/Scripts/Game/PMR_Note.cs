@@ -15,12 +15,12 @@ namespace PikachuMusicRun.Game
         /// <summary>
         /// Note speed
         /// </summary>
-        [SerializeField] private int m_noteSpeed = 5;
+        [SerializeField] private float m_noteSpeed = 5f;
 
         // Use this for initialization
         void Start()
         {
-
+            m_noteSpeed = PMR_AudioManager.Instance.AudioSpeed;
         }
 
         private void Update()

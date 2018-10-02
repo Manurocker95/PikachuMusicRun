@@ -39,7 +39,14 @@ namespace PikachuMusicRun
         /// If we want to stop the music when pausing or not
         /// </summary>
         [SerializeField] private bool m_stopSourcesOnPause;
-        [SerializeField] float[] m_spectrumArray;
+        /// <summary>
+        /// Audio speed
+        /// </summary>
+        [SerializeField] private float m_audioSpeed = 0;
+        /// <summary>
+        /// properties
+        /// </summary>
+        public float AudioSpeed { get { return m_audioSpeed; } }
         #endregion
 
         #region Monobehaviour
@@ -80,8 +87,10 @@ namespace PikachuMusicRun
 
         public float [] SetBGMSpectrum(int samples)
         {
-            m_spectrumArray = new float[samples];
+            float[] m_spectrumArray = new float[samples];
             m_bgmSource.GetSpectrumData(m_spectrumArray, 0, FFTWindow.Rectangular);
+            m_audioSpeed = 2f; // m_bgmSource.clip.length / samples;
+
             return m_spectrumArray;
         }
 
