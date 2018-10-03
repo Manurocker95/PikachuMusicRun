@@ -81,9 +81,9 @@ namespace PikachuMusicRun.Menu
         {
             m_pressStartText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.PRESS_START);
             m_newGameText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.NEW_GAME);
-            m_bestScoreText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.BEST_SCORE);
-            m_optionsText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.OPTIONS);
-            m_creditsText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.CREDITS);
+            m_bestScoreText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.BEST_SCORE) + PlayerPrefs.GetInt(PMR_GameSetup.PlayerPrefs.BEST_SCORE, 0);
+            //m_optionsText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.OPTIONS);
+            //m_creditsText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.CREDITS);
             m_exitText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.EXIT);         
         }
         /// <summary>
@@ -177,6 +177,11 @@ namespace PikachuMusicRun.Menu
         public void ExitGame()
         {
             Application.Quit();
+        }
+
+        public void GoBackToMenu()
+        {
+            PMR_SceneManager.LoadScene(PMR_SceneSetup.SCENES.MAIN_MENU, 1f, PMR_EventSetup.Game.GO_TO_MENU);
         }
     }
 

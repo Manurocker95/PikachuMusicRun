@@ -8,17 +8,56 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using PikachuMusicRun.Setup;
+using PikachuMusicRun.Localization;
 
 namespace PikachuMusicRun.Game
 {
     public class PMR_GameManager : PMR_SingletonMonobehaviour<PMR_GameManager>
     {
+        /// <summary>
+        /// Current score
+        /// </summary>
         [SerializeField] private int m_score;
+        /// <summary>
+        /// If the game is paused or not
+        /// </summary>
         [SerializeField] private bool m_pause = false;
+        /// <summary>
+        /// If the game has ended
+        /// </summary>
+        [SerializeField] private bool m_ended = false;
+        /// <summary>
+        /// Current Difficulty
+        /// </summary>
         [SerializeField] private DIFICULTY m_difficulty = DIFICULTY.DIFFICULT;
+        /// <summary>
+        /// Number of samples / Notes
+        /// </summary>
         [SerializeField] private int m_samples = 0;
+        /// <summary>
+        /// Spectrum sample array
+        /// </summary>
         [SerializeField] private float[] m_samplesArray;
+        /// <summary>
+        /// Audio Length
+        /// </summary>
+        [SerializeField] private float m_gameLenght = 0f;
+        /// <summary>
+        /// Timer to know when the game has ended
+        /// </summary>
+        [SerializeField] private float m_timer = 0f;
+        /// <summary>
+        /// Time spent after ending the game (delay to stop playing)
+        /// </summary>
+        [SerializeField] private float m_timeThreshold = 5f;
+        [SerializeField] private Text m_scoreText;
+        [SerializeField] private Text m_scoreEndText;
+        [SerializeField] private Text m_endText;
+        [SerializeField] private Text m_restartbtnText;
+        [SerializeField] private Text m_backbtnText;
+        [SerializeField] private GameObject m_endPanel;
 
         public bool Paused { get { return m_pause; } }
         
@@ -39,6 +78,22 @@ namespace PikachuMusicRun.Game
                     break;
             }
         }
+
+        private void LateUpdate()
+        {
+            if (!m_pause && !m_ended)
+            {
+                m_timer++;
+
+                if (m_timer > m_gameLenght + m_timeThreshold)
+                {
+
+                    EndGame();
+
+                }
+            }
+        }
+
         private void OnDestroy()
         {
             StopAllListeners();
@@ -56,6 +111,24 @@ namespace PikachuMusicRun.Game
                 PMR_EventManager.StopListening(PMR_EventSetup.Game.PAUSE_GAME, ResetGame);
         }
 
+        public void EndGame()
+        {
+            m_ended = true;
+            int bestScore = PlayerPrefs.GetInt(PMR_GameSetup.PlayerPrefs.BEST_SCORE, 0);
+
+            if (m_score > bestScore)
+                PlayerPrefs.SetInt(PMR_GameSetup.PlayerPrefs.BEST_SCORE, m_score);
+
+            m_endPanel.SetActive(true);
+
+            m_endText.text = PMR_TextManager.GetText(PMR_TextSetup.Game.END_TEXT);
+            m_scoreEndText.text = PMR_TextManager.GetText(PMR_TextSetup.Game.SCORE_TEXT) + m_score;
+            m_restartbtnText.text = PMR_TextManager.GetText(PMR_TextSetup.Game.RESTART);
+            m_backbtnText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.BACK_TO_MENU);
+
+            PMR_EventManager.TriggerEvent(PMR_EventSetup.Game.END_GAME);
+        }
+
         public void PauseAndUnpause()
         {
             m_pause = !m_pause;
@@ -68,7 +141,10 @@ namespace PikachuMusicRun.Game
 
         public void ResetGame()
         {
+            m_endPanel.SetActive(false);
+            m_scoreText.gameObject.SetActive(true);
             m_pause = false;
+            m_ended = false;
             m_score = 0;
             InitSpectrum();
         }
@@ -77,9 +153,14 @@ namespace PikachuMusicRun.Game
         {
             PMR_AudioManager.Instance.PlayGameBGM();
 
-            m_samplesArray = PMR_AudioManager.Instance.SetBGMSpectrum(m_samples);
+            m_gameLenght = PMR_AudioManager.Instance.BGMLength;
+
+            m_samplesArray = PMR_AudioManager.Instance.SetBGMSpectrum(m_samples, m_difficulty);
             string str;
             float newValue = 0f;
+
+
+            PMR_NoteSpawner.Instance.m_noteBetweenDistance = m_samplesArray.Length / m_gameLenght - 2f;
 
             for (int i = 0; i < m_samplesArray.Length; i++)
             {
@@ -90,8 +171,10 @@ namespace PikachuMusicRun.Game
                     str = (str.Length - 4 > 0) ? str.Remove(str.Length - 4) : str.Remove(0);
                     newValue = float.Parse(str);
 
-                    if (newValue > 3)
-                        newValue -= 2f;
+                    if (newValue > 2f && newValue < 3.5f)
+                        newValue -= 2.5f;
+                    else if (newValue > 3.5f)
+                        newValue = 2.5f;
 
                     m_samplesArray[i] = newValue;
                 }
@@ -107,6 +190,7 @@ namespace PikachuMusicRun.Game
         public void AddScore(int score)
         {
             m_score += score;
+            m_scoreText.text = "x" + m_score;
         }
     }
 

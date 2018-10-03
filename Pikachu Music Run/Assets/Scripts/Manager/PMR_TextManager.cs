@@ -101,35 +101,20 @@ namespace PikachuMusicRun.Localization
             m_texts = new Dictionary<string, Dictionary<string, PMR_TextItem>>();
             m_activelanguages = new List<SystemLanguage>();
 
+            if (m_localizationFiles.Length < 1)
+                m_localizationFiles = Resources.LoadAll<TextAsset>(PMR_TextSetup.LOCALIZATION_FILES_PATH);
+
             foreach (TextAsset a in m_localizationFiles)
             {
                 ParseTexts(a);
             }
 
-            int m_currentLanguageIndex = PlayerPrefs.GetInt(PMR_GameSetup.PlayerPrefs.LAST_LANGUAGE, -1);
+            m_currentLanguage = Application.systemLanguage;
 
-            if (m_currentLanguageIndex >= m_activelanguages.Count)
+            if (!m_texts.ContainsKey(m_currentLanguage.ToString()))
             {
-                m_currentLanguageIndex = 0;
-                PlayerPrefs.SetInt(PMR_GameSetup.PlayerPrefs.LAST_LANGUAGE, -1);
+                m_currentLanguage = SystemLanguage.English;
             }
-
-            if (m_currentLanguageIndex != -1)
-            {
-                m_currentLanguage = m_activelanguages[m_currentLanguageIndex];
-            }
-            else
-            {
-                m_currentLanguage = Application.systemLanguage;
-
-                if (!m_texts.ContainsKey(m_currentLanguage.ToString()))
-                {
-                    m_currentLanguage = SystemLanguage.English;
-                }
-
-                m_currentLanguageIndex = m_activelanguages.IndexOf(m_currentLanguage);
-                PlayerPrefs.SetInt(PMR_GameSetup.PlayerPrefs.LAST_LANGUAGE, (int)m_currentLanguage);
-            }        
         }
         #endregion
 

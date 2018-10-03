@@ -46,6 +46,7 @@ namespace PikachuMusicRun.Game
         /// A position marking where to check if the player is grounded.
         /// </summary>
         [SerializeField] private Transform m_GroundCheck;
+        [SerializeField] private Animator m_animator;
         /// <summary>
         /// Player's rigidbody
         /// </summary>
@@ -67,6 +68,8 @@ namespace PikachuMusicRun.Game
 
             if (OnLandEvent == null)
                 OnLandEvent = new UnityEvent();
+
+            OnLandEvent.AddListener(OnLand);
         }
 
         private void FixedUpdate()
@@ -88,6 +91,11 @@ namespace PikachuMusicRun.Game
             }
         }
 
+        void OnLand()
+        {
+            m_animator.SetBool("jumping", false);
+        }
+
         private void Update()
         {
             if (PMR_InputManager.PressedJumpButton())
@@ -102,6 +110,7 @@ namespace PikachuMusicRun.Game
        {
             m_Grounded = false;
             m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+            m_animator.SetBool("jumping", true);
        }
     }
 }

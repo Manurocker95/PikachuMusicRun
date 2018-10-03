@@ -47,6 +47,7 @@ namespace PikachuMusicRun
         /// properties
         /// </summary>
         public float AudioSpeed { get { return m_audioSpeed; } }
+        public float BGMLength { get { return m_bgmSource.clip.length; } }
         #endregion
 
         #region Monobehaviour
@@ -85,11 +86,28 @@ namespace PikachuMusicRun
         {
         }
 
-        public float [] SetBGMSpectrum(int samples)
+        public float [] SetBGMSpectrum(int samples, DIFICULTY difficulty)
         {
             float[] m_spectrumArray = new float[samples];
             m_bgmSource.GetSpectrumData(m_spectrumArray, 0, FFTWindow.Rectangular);
-            m_audioSpeed = 2f; // m_bgmSource.clip.length / samples;
+
+            int difficultyMultiplier = 0;
+
+            switch (difficulty)
+            {
+                case DIFICULTY.EASY:
+                    difficultyMultiplier = PMR_GameSetup.Dificulty_Velocities.EASY;
+                    break;
+                case DIFICULTY.MID:
+                    difficultyMultiplier = PMR_GameSetup.Dificulty_Velocities.MID;
+                    break;
+                case DIFICULTY.DIFFICULT:
+                    difficultyMultiplier = PMR_GameSetup.Dificulty_Velocities.DIFFICULT;
+                    break;
+            }
+
+
+            m_audioSpeed = (m_bgmSource.clip.length / samples) * difficultyMultiplier * m_bgmSource.pitch;
 
             return m_spectrumArray;
         }

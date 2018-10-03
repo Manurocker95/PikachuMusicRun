@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 50760991731144580}
   - component: {fileID: 61037474026762764}
   - component: {fileID: 58263720167441848}
+  - component: {fileID: 95278238729962856}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -66,8 +67,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1892638320638908}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.3915449, y: -1.3211915, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 2.7, y: -1.24, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
   - {fileID: 4026209290098278}
   m_Father: {fileID: 0}
@@ -105,7 +106,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.004534304, y: -0.09}
+  m_Offset: {x: 0.16, y: -0.27}
   serializedVersion: 2
   m_Radius: 0.06483239
 --- !u!61 &61037474026762764
@@ -120,19 +121,37 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.010305405, y: -0.015664041}
+  m_Offset: {x: 0.16, y: -0.14}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.33, y: 0.32}
+    pivot: {x: 0, y: 1}
+    oldSize: {x: 0.56, y: 0.32}
     newSize: {x: 0.33, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.128016, y: 0.10729849}
+  m_Size: {x: 0.3, y: 0.2}
   m_EdgeRadius: 0
+--- !u!95 &95278238729962856
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1892638320638908}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5a1201ed2e9a7f34c9aa51a3797a83d0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114123788727911208
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -144,13 +163,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14374077348d3934487d7b1b0c44ee7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JumpForce: 400
+  m_JumpForce: 600
   m_MovementSmoothing: 0.05
   m_AirControl: 1
   m_WhatIsGround:
     serializedVersion: 2
     m_Bits: 1079
   m_GroundCheck: {fileID: 4026209290098278}
+  m_animator: {fileID: 95278238729962856}
   OnLandEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -191,7 +211,7 @@ SpriteRenderer:
   m_SortingLayerID: -605225721
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 72de0c64f2c6a498096698322c976a67, type: 3}
+  m_Sprite: {fileID: 21300002, guid: e7927d0d5576d5a45baf52b7cb145f36, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -7,8 +7,9 @@ namespace PikachuMusicRun.Game
     public class PMR_NoteSpawner : PMR_SingletonMonobehaviour<PMR_NoteSpawner>
     {
         [SerializeField] private GameObject m_notePrefab;
-        int _x = 0;
-        int jump = 2;
+        [SerializeField] private float m_noteWidth = 2f;
+        [SerializeField] private float m_noteX = 0f;
+        public float m_noteBetweenDistance = 2f;
 
         protected override void Awake()
         {
@@ -19,18 +20,16 @@ namespace PikachuMusicRun.Game
         // Use this for initialization
         void Start()
         {
- 
-    
+           
+
+
         }
 
-        public void InstantiatePrefab(float sampleHeight)
+        public void InstantiatePrefab(float _sampleHeight)
         {
-            GameObject go = Instantiate(m_notePrefab);
-            float _y = transform.position.y;
-            float _val = _y + sampleHeight;
-            
-            go.transform.position = new Vector3(transform.position.x-_x, _val, transform.position.z);
-            _x += jump;
+           GameObject go = Instantiate(m_notePrefab);
+            go.transform.position = new Vector3(transform.position.x - m_noteX, transform.position.y + _sampleHeight, transform.position.z);
+            m_noteX += m_noteBetweenDistance;
         }
     }
 

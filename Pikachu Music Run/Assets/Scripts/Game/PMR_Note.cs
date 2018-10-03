@@ -26,9 +26,12 @@ namespace PikachuMusicRun.Game
         private void Update()
         {
             transform.Translate(Vector3.right * Time.deltaTime * m_noteSpeed);
+
+            if (transform.position.x > 30)
+                Destroy(this.gameObject);
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.tag == PMR_GameSetup.Tags.PLAYER)
             {

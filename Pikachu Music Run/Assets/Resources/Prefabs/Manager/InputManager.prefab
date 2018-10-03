@@ -51,4 +51,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0488845c546d6a5489b2225745d9d523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_jumpKeyCodes: 200000005e010000
+  m_jumpKeyCodes: 200000005e010000430100000d000000
+  m_introSkipKeyCodes: 0d0000005e0100004301000020000000

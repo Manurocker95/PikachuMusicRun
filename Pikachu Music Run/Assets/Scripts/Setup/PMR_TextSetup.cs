@@ -18,10 +18,19 @@ namespace PikachuMusicRun.Setup
     /// 
     public static class PMR_TextSetup
     {
-        
+        /// <summary>
+        /// Resources/Archives/English.xml...
+        /// </summary>
+        public const string LOCALIZATION_FILES_PATH = "Archives";
         public class LoadingScreen
         {
             public const string LOADING_TEXT = "loadingText";
+        }
+        public class Game
+        {
+            public const string END_TEXT = "endText";
+            public const string SCORE_TEXT = "scoreEndText";
+            public const string RESTART = "restartText";
         }
 
         public class Menu

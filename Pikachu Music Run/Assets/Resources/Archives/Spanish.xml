@@ -67,6 +67,18 @@
   </Table1>
   <Table1>
     <Key>bestScoreText</Key>
-    <Text>Mejor Puntuación</Text>
+    <Text>Mejor Puntuación:</Text>
+  </Table1>  
+  <Table1>
+    <Key>restartText</Key>
+    <Text>Otra Vez</Text>
+  </Table1>  
+  <Table1>
+    <Key>scoreEndText</Key>
+    <Text>TU PUNTUACIÓN ES: </Text>
+  </Table1>  
+  <Table1>
+    <Key>endText</Key>
+    <Text>¡¡FELICIDADES!!</Text>
   </Table1>
 </NewDataSet>

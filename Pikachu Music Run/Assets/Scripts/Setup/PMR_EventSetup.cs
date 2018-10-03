@@ -20,6 +20,8 @@ namespace PikachuMusicRun.Setup
 
             public const string GO_TO_GAME = "goToGameEvent";
             public const string GO_TO_MENU = "goToMenuEvent";
+
+            public const string END_GAME = "endGameEvent";
         }
 
         public static class Localization
