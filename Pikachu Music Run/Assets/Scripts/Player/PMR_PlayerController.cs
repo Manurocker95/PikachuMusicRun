@@ -34,7 +34,7 @@ namespace PikachuMusicRun.Game
         /// <summary>
         /// Radius of the overlap circle to determine if grounded
         /// </summary>
-        [SerializeField] float k_GroundedRadius = .5f;
+        const float k_GroundedRadius = .2f;
         /// <summary>
         /// Whether or not the player is grounded.
         /// </summary>
@@ -91,7 +91,6 @@ namespace PikachuMusicRun.Game
                 return;
 
             bool wasGrounded = m_Grounded;
-            m_Grounded = false;
 
             // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
             // This can be done using layers instead but Sample Assets will not overwrite your project settings.
@@ -116,6 +115,7 @@ namespace PikachuMusicRun.Game
         {
             if (m_started && m_Grounded && PMR_InputManager.PressedJumpButton())
             {
+                m_Grounded = false;
                 Jump();
             }
         }

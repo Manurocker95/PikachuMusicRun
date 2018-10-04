@@ -151,7 +151,8 @@ namespace PikachuMusicRun.Game
         
         public void GoBackToMenu()
         {
-            PMR_SceneManager.LoadScene(PMR_SceneSetup.SCENES.MAIN_MENU, 1f, PMR_EventSetup.Game.GO_TO_MENU);
+            PMR_EventManager.TriggerEvent(PMR_EventSetup.Game.GO_TO_MENU);
+            PMR_SceneManager.LoadScene(PMR_SceneSetup.SCENES.MAIN_MENU, 1f, PMR_EventSetup.Menu.INIT);
         }
 
 

@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1476834106823598}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1601, z: 0}
+  m_LocalPosition: {x: 0.159, y: -0.309, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4178873269305336}
@@ -166,11 +166,14 @@ MonoBehaviour:
   m_JumpForce: 600
   m_MovementSmoothing: 0.05
   m_AirControl: 1
+  k_GroundedRadius: 0.5
+  m_Grounded: 0
   m_WhatIsGround:
     serializedVersion: 2
     m_Bits: 1079
   m_GroundCheck: {fileID: 4026209290098278}
   m_animator: {fileID: 95278238729962856}
+  m_started: 0
   OnLandEvent:
     m_PersistentCalls:
       m_Calls: []
