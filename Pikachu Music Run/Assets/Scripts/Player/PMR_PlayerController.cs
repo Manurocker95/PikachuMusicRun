@@ -114,7 +114,7 @@ namespace PikachuMusicRun.Game
 
         private void Update()
         {
-            if (m_started && PMR_InputManager.PressedJumpButton())
+            if (m_started && m_Grounded && PMR_InputManager.PressedJumpButton())
             {
                 Jump();
             }

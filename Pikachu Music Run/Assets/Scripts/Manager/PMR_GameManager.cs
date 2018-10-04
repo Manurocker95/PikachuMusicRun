@@ -123,6 +123,9 @@ namespace PikachuMusicRun.Game
                     m_eventSystem.SetSelectedGameObject(m_restartbtnText.transform.parent.gameObject);
                 }
             }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+                GoBackToMenu();
         }
 
     
