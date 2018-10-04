@@ -967,7 +967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
+  m_Color: {r: 0.882353, g: 0.87843144, b: 0.882353, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1590,6 +1590,7 @@ MonoBehaviour:
   m_optionsText: {fileID: 0}
   m_creditsText: {fileID: 0}
   m_exitText: {fileID: 475478971}
+  m_eventSystem: {fileID: 1357175675}
 --- !u!1 &1946232129
 GameObject:
   m_ObjectHideFlags: 0
@@ -1673,7 +1674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
+  m_Color: {r: 0.882353, g: 0.87843144, b: 0.882353, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

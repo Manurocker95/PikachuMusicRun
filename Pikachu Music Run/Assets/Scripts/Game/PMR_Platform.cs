@@ -2,11 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PMR_Platform : PMR_GameElement
+namespace PikachuMusicRun.Game
 {
-    protected override void Start()
+    public class PMR_Platform : PMR_GameElement
     {
-        base.Start();
-        m_started = true;
+        protected override void Start()
+        {
+            base.Start();
+        }
+
+        protected override void SetVelocity()
+        {
+            m_speed = PMR_AudioManager.Instance.AudioSpeed / 2;
+        }
+
     }
+
 }

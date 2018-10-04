@@ -91,7 +91,7 @@ namespace PikachuMusicRun
             m_bgmSource.Stop();
         }
 
-        public float [] SetBGMSpectrum(int samples, DIFICULTY difficulty)
+        public float[] SetBGMSpectrum(int samples, DIFICULTY difficulty)
         {
             float[] m_spectrumArray = new float[samples];
             m_bgmSource.GetSpectrumData(m_spectrumArray, 0, FFTWindow.Rectangular);
@@ -112,7 +112,7 @@ namespace PikachuMusicRun
             }
 
 
-            m_audioSpeed = (m_bgmSource.clip.length / samples) * difficultyMultiplier * m_bgmSource.pitch;
+            m_audioSpeed = difficultyMultiplier; //(m_bgmSource.clip.length / samples) * difficultyMultiplier * m_bgmSource.pitch;
 
             return m_spectrumArray;
         }

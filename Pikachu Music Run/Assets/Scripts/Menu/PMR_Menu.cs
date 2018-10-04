@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace PikachuMusicRun.Menu
 {
@@ -29,6 +30,9 @@ namespace PikachuMusicRun.Menu
         [SerializeField] private Text m_creditsText;
         [SerializeField] private Text m_exitText;
 
+        [Header("EventSystem"), Space(10)]
+        [SerializeField] private EventSystem m_eventSystem;
+
         private MENU_STATE m_state;
 
         /// <summary>
@@ -37,6 +41,7 @@ namespace PikachuMusicRun.Menu
         // Use this for initialization
         void Start()
         {
+            m_eventSystem = EventSystem.current;
             m_state = MENU_STATE.INIT;
             TranslateTexts();
             StartAllListeners();
@@ -48,7 +53,15 @@ namespace PikachuMusicRun.Menu
                 if (PMR_InputManager.PressedSkipButton())
                 {
                     m_state = MENU_STATE.MAIN;
+                    m_eventSystem.SetSelectedGameObject(m_newGameText.transform.parent.gameObject);
                     ShowMainAnimation();
+                }
+            }
+            else if (m_state == MENU_STATE.MAIN)
+            {
+                if (m_eventSystem.currentSelectedGameObject == null && (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow)))
+                {
+                    m_eventSystem.SetSelectedGameObject(m_newGameText.transform.parent.gameObject);
                 }
             }
         }

@@ -9,7 +9,7 @@ namespace PikachuMusicRun.Game
     {
         protected override void SetVelocity()
         {
-            m_speed = PMR_AudioManager.Instance.AudioSpeed / 2;
+            m_speed = PMR_AudioManager.Instance.AudioSpeed;
         }
     }
 

@@ -25,6 +25,8 @@ namespace PikachuMusicRun.Setup
             public const string SET_VELOCITY = "setVelocityEvent";
             public const string END_COUNTDOWN = "endCountDownEvent";
             public const string RESET = "resetgameEvent";
+
+            public const string SHOW_END_PANEL = "showEndPanelEvent";
         }
 
         public static class Localization

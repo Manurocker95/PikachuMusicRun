@@ -34,11 +34,11 @@ namespace PikachuMusicRun.Game
         /// <summary>
         /// Radius of the overlap circle to determine if grounded
         /// </summary>
-        const float k_GroundedRadius = .2f;
+        [SerializeField] float k_GroundedRadius = .5f;
         /// <summary>
         /// Whether or not the player is grounded.
         /// </summary>
-        private bool m_Grounded;            
+        [SerializeField] private bool m_Grounded;            
         /// <summary>
         /// A mask determining what is ground to the character
         /// </summary>
@@ -47,6 +47,9 @@ namespace PikachuMusicRun.Game
         /// A position marking where to check if the player is grounded.
         /// </summary>
         [SerializeField] private Transform m_GroundCheck;
+        /// <summary>
+        /// Pikachu's animator
+        /// </summary>
         [SerializeField] private Animator m_animator;
         /// <summary>
         /// Player's rigidbody

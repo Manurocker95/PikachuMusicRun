@@ -16,6 +16,10 @@ namespace PikachuMusicRun.Game
         /// Note speed
         /// </summary>
         [SerializeField] private float m_noteSpeed = 5f;
+        /// <summary>
+        /// Limit where the note is destroyed if not gotten
+        /// </summary>
+        [SerializeField] private float m_xMaxLimit = 30f;
 
         // Use this for initialization
         void Start()
@@ -27,8 +31,12 @@ namespace PikachuMusicRun.Game
         {
             transform.Translate(Vector3.right * Time.deltaTime * m_noteSpeed);
 
-            if (transform.position.x > 30)
-                Destroy(this.gameObject);
+            if (transform.position.x > m_xMaxLimit)
+            {
+                this.gameObject.SetActive(false);
+                PMR_GameManager.Instance.m_notes++;
+            }
+                
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -37,7 +45,7 @@ namespace PikachuMusicRun.Game
             {
                 PMR_AudioManager.Instance.PlayNoteSFX();
                 PMR_GameManager.Instance.AddScore(m_score);
-                Destroy(this.gameObject);
+                this.gameObject.SetActive(false);
             }
         }
     }
