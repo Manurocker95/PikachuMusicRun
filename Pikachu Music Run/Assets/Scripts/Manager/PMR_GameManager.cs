@@ -52,6 +52,8 @@ namespace PikachuMusicRun.Game
         /// Time spent after ending the game (delay to stop playing)
         /// </summary>
         [SerializeField] private float m_timeThreshold = 5f;
+
+        [Header("End panel"), Space(10)]
         [SerializeField] private Text m_scoreText;
         [SerializeField] private Text m_scoreEndText;
         [SerializeField] private Text m_endText;
@@ -59,11 +61,24 @@ namespace PikachuMusicRun.Game
         [SerializeField] private Text m_backbtnText;
         [SerializeField] private GameObject m_endPanel;
 
+        [Header("Platform"), Space(10)]
+        [SerializeField] private GameObject m_platformPrefab;
+        [SerializeField] private Vector3 m_platformOrigin;
+        [SerializeField] private float m_timeToSpawnPlatform = 5f;
+        [SerializeField] private float m_platformTimer = 0f;
+
+        [Header("Animator"), Space(10)]
+        [SerializeField] private Animator m_animator;
+        [SerializeField] private AudioClip[] m_clip;
+        [SerializeField] private AudioSource m_source;
+        [SerializeField] private bool m_started = false;
+
         public bool Paused { get { return m_pause; } }
         
         // Use this for initialization
         void Start()
         {
+            m_started = false;
             StartAllListeners();
             switch (m_difficulty)
             {
@@ -79,20 +94,28 @@ namespace PikachuMusicRun.Game
             }
         }
 
-        private void LateUpdate()
+        private void Update()
         {
-            if (!m_pause && !m_ended)
+            if (!m_pause && !m_ended && m_started)
             {
-                m_timer++;
+                m_platformTimer+=Time.deltaTime;
+
+                if (m_platformTimer > m_timeToSpawnPlatform)
+                {
+                    m_platformTimer++;
+                    Instantiate(m_platformPrefab, m_platformOrigin, Quaternion.identity);
+                }
+
+                m_timer += Time.deltaTime;
 
                 if (m_timer > m_gameLenght + m_timeThreshold)
                 {
-
                     EndGame();
-
                 }
             }
         }
+
+  
 
         private void OnDestroy()
         {
@@ -119,14 +142,19 @@ namespace PikachuMusicRun.Game
             if (m_score > bestScore)
                 PlayerPrefs.SetInt(PMR_GameSetup.PlayerPrefs.BEST_SCORE, m_score);
 
-            m_endPanel.SetActive(true);
-
             m_endText.text = PMR_TextManager.GetText(PMR_TextSetup.Game.END_TEXT);
             m_scoreEndText.text = PMR_TextManager.GetText(PMR_TextSetup.Game.SCORE_TEXT) + m_score;
             m_restartbtnText.text = PMR_TextManager.GetText(PMR_TextSetup.Game.RESTART);
             m_backbtnText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.BACK_TO_MENU);
 
             PMR_EventManager.TriggerEvent(PMR_EventSetup.Game.END_GAME);
+
+            m_animator.SetTrigger(PMR_GameSetup.Triggers.END);
+        }
+
+        public void ShowPanel()
+        {
+            m_endPanel.SetActive(true);
         }
 
         public void PauseAndUnpause()
@@ -141,12 +169,30 @@ namespace PikachuMusicRun.Game
 
         public void ResetGame()
         {
+            PMR_AudioManager.Instance.StopBGM();
+            PMR_EventManager.TriggerEvent(PMR_EventSetup.Game.RESET);
             m_endPanel.SetActive(false);
             m_scoreText.gameObject.SetActive(true);
             m_pause = false;
             m_ended = false;
+            m_started = false;
             m_score = 0;
+            m_scoreText.text = "x" + m_score;
+            m_animator.SetTrigger(PMR_GameSetup.Triggers.COUNTDOWN);
+        }
+
+        public void PlaySound(int index)
+        {
+            m_source.clip = m_clip[index];
+            m_source.Play();
+        }
+
+        public void StartTheGame()
+        {
+            m_started = true;
+            PMR_EventManager.TriggerEvent(PMR_EventSetup.Game.END_COUNTDOWN);
             InitSpectrum();
+
         }
 
         public void InitSpectrum()
@@ -181,6 +227,8 @@ namespace PikachuMusicRun.Game
 
                 PMR_NoteSpawner.Instance.InstantiatePrefab(m_samplesArray[i]);
             }
+
+            PMR_EventManager.TriggerEvent(PMR_EventSetup.Game.SET_VELOCITY);
         }
 
         /// <summary>

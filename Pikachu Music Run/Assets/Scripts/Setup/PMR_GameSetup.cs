@@ -18,6 +18,11 @@ namespace PikachuMusicRun.Setup
             public const string PLAYER = "Player";
             public const string NOTE = "Note";
         }
+        public static class Triggers
+        {
+            public const string COUNTDOWN = "Countdown";
+            public const string END = "End";
+        }
 
         public static class PlayerPrefs
         {

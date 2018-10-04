@@ -86,6 +86,11 @@ namespace PikachuMusicRun
         {
         }
 
+        public void StopBGM()
+        {
+            m_bgmSource.Stop();
+        }
+
         public float [] SetBGMSpectrum(int samples, DIFICULTY difficulty)
         {
             float[] m_spectrumArray = new float[samples];
@@ -136,6 +141,7 @@ namespace PikachuMusicRun
         /// </summary>
         public void PlayGameBGM()
         {
+            m_bgmSource.loop = false;
             m_bgmSource.clip = Resources.Load<AudioClip>(PMR_AudioSetup.GAME_BGM);
             m_bgmSource.Play();
         }
@@ -144,6 +150,7 @@ namespace PikachuMusicRun
         /// </summary>
         public void PlayMenuBGM()
         {
+            m_bgmSource.loop = true;
             m_bgmSource.clip = Resources.Load<AudioClip>(PMR_AudioSetup.MENU_BGM);
             m_bgmSource.Play();
         }

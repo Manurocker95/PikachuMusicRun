@@ -5,6 +5,7 @@
 /// You can contact me on GBATemp as Manurocker95, email: Manuelrodriguezmatesanz@gmail.com
 /// or even on my web: Manuelrodriguezmatesanz.com
 
+using PikachuMusicRun.Setup;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,6 +57,8 @@ namespace PikachuMusicRun.Game
         /// </summary>
         private Vector3 m_Velocity = Vector3.zero;
 
+        [SerializeField] private bool m_started = false;
+
         [Header("Events"), Space(10)]
         public UnityEvent OnLandEvent;
 
@@ -72,8 +75,18 @@ namespace PikachuMusicRun.Game
             OnLandEvent.AddListener(OnLand);
         }
 
+        private void Start()
+        {
+            PMR_EventManager.StartListening(PMR_EventSetup.Game.END_COUNTDOWN, StartTheGame);
+            PMR_EventManager.StartListening(PMR_EventSetup.Game.RESET, ResetTheGame);
+            PMR_EventManager.StartListening(PMR_EventSetup.Game.END_GAME, ResetTheGame);
+        }
+
         private void FixedUpdate()
         {
+            if (!m_started)
+                return;
+
             bool wasGrounded = m_Grounded;
             m_Grounded = false;
 
@@ -98,11 +111,24 @@ namespace PikachuMusicRun.Game
 
         private void Update()
         {
-            if (PMR_InputManager.PressedJumpButton())
+            if (m_started && PMR_InputManager.PressedJumpButton())
             {
                 Jump();
             }
         }
+
+        void StartTheGame()
+        {
+            m_started = true;
+            m_animator.SetBool("running", true);
+        }
+
+        void ResetTheGame()
+        {
+            m_started = false;
+            m_animator.SetBool("running", false);
+        }
+
         /// <summary>
         /// We can only jump
         /// </summary>
