@@ -12,6 +12,7 @@ using UnityEngine.UI;
 using PikachuMusicRun.Setup;
 using PikachuMusicRun.Localization;
 using UnityEngine.EventSystems;
+using System.Globalization;
 
 namespace PikachuMusicRun.Game
 {
@@ -82,6 +83,8 @@ namespace PikachuMusicRun.Game
         public int m_notes = 0;
         public int m_neededNotes = 0;
 
+        private bool m_ingame = false;
+
         public bool Paused { get { return m_pause; } }
         public bool Ended { get { return m_ended; } }
         public DIFICULTY Difficulty { get { return m_difficulty; } }
@@ -116,6 +119,7 @@ namespace PikachuMusicRun.Game
                 {
                     EndGame();
                 }
+
             }
 
             if (m_showingEndPanel)
@@ -126,7 +130,7 @@ namespace PikachuMusicRun.Game
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) && m_ingame)
                 GoBackToMenu();
         }
 
@@ -153,6 +157,7 @@ namespace PikachuMusicRun.Game
         
         public void GoBackToMenu()
         {
+            m_ingame = false;
             PMR_EventManager.TriggerEvent(PMR_EventSetup.Game.GO_TO_MENU);
             PMR_SceneManager.LoadScene(PMR_SceneSetup.SCENES.MAIN_MENU, 1f, PMR_EventSetup.Menu.INIT);
         }
@@ -203,7 +208,7 @@ namespace PikachuMusicRun.Game
 
         public void ResetGame()
         {
-
+            m_ingame = true;
             PMR_AudioManager.Instance.StopBGM();
             PMR_EventManager.TriggerEvent(PMR_EventSetup.Game.RESET);
             m_endPanel.SetActive(false);
@@ -243,25 +248,36 @@ namespace PikachuMusicRun.Game
 
             PMR_NoteSpawner.Instance.m_noteBetweenDistance = 2f;
 
-            for (int i = 0; i < m_samplesArray.Length; i++)
+            if (m_samplesArray.Length > 0)
             {
-                str = m_samplesArray[i].ToString();
-
-                if (str.Length > 0)
+                for (int i = 0; i < m_samplesArray.Length; i++)
                 {
-                    str = (str.Length - 4 > 0) ? str.Remove(str.Length - 4) : str.Remove(0);
-                    newValue = float.Parse(str);
+                    str = m_samplesArray[i].ToString();
 
-                    if (newValue > 2f && newValue < 3.5f)
-                        newValue -= 2.5f;
-                    else if (newValue > 3.5f)
-                        newValue = 2.5f;
+                    if (str.Length > 0)
+                    {
+                        str = (str.Length - 4 > 0) ? str.Remove(str.Length - 4) : str.Remove(0);
+                        newValue = float.Parse(str, CultureInfo.InvariantCulture);
 
-                    m_samplesArray[i] = newValue;
+                        if (newValue > 2f && newValue < 3.5f)
+                            newValue -= 2.5f;
+                        else if (newValue > 3.5f)
+                            newValue = 2.5f;
+
+                        m_samplesArray[i] = newValue;
+                    }
+
+                    PMR_NoteSpawner.Instance.InstantiatePrefab(m_samplesArray[i], i);
+                    m_neededNotes++;
                 }
-
-                PMR_NoteSpawner.Instance.InstantiatePrefab(m_samplesArray[i], i);
-                m_neededNotes++;
+            }
+            else
+            {
+                for (int i = 0; i < m_samples; i++)
+                {
+                    PMR_NoteSpawner.Instance.InstantiatePrefab(Random.Range(0,2), i);
+                    m_neededNotes++;
+                }
             }
 
             PMR_EventManager.TriggerEvent(PMR_EventSetup.Game.SET_VELOCITY);

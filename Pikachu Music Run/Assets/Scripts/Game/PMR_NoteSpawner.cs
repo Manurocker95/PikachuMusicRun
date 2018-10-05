@@ -13,7 +13,7 @@ namespace PikachuMusicRun.Game
         [SerializeField] private List<GameObject> m_notes;
         public float m_noteBetweenDistance = 2f;
         public bool m_initialized = false;
-
+        
         protected override void Awake()
         {
             m_destroyOnLoad = true;
@@ -25,6 +25,11 @@ namespace PikachuMusicRun.Game
         void Start()
         {
             PMR_EventManager.StartListening(PMR_EventSetup.Game.END_GAME, ResetManager);
+        }
+
+        private void Update()
+        {
+
         }
 
         void OnDestroy()
@@ -43,6 +48,8 @@ namespace PikachuMusicRun.Game
             go.transform.position = new Vector3(transform.position.x - m_noteX, transform.position.y + _sampleHeight, transform.position.z);
             go.SetActive(true);
             m_noteX += m_noteBetweenDistance;
+
+            //Debug.Log(go+"I WAS CREATED!");
 
             if (!m_initialized)
                 m_notes.Add(go);
