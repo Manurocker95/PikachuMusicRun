@@ -133,6 +133,7 @@ namespace PikachuMusicRun.Menu
         void InitMenu()
         {
             m_state = MENU_STATE.INIT;
+            PMR_AudioManager.Instance.PlayMenuBGM();
             PMR_EventManager.TriggerEvent(PMR_EventSetup.Game.GO_TO_MENU);
             m_mainAnimator.SetTrigger("init");
         }

@@ -183,6 +183,9 @@ namespace PikachuMusicRun
         /// </summary>
         public void PlayGameBGM()
         {
+            if (m_bgmSource.isPlaying)
+                m_bgmSource.Stop();
+
             m_bgmSource.loop = false;
             m_bgmSource.clip = Resources.Load<AudioClip>(PMR_AudioSetup.GAME_BGM);
             m_bgmSource.Play();
@@ -192,6 +195,9 @@ namespace PikachuMusicRun
         /// </summary>
         public void PlayMenuBGM()
         {
+            if (m_bgmSource.isPlaying)
+                m_bgmSource.Stop();
+
             m_bgmSource.loop = true;
             m_bgmSource.clip = Resources.Load<AudioClip>(PMR_AudioSetup.MENU_BGM);
             m_bgmSource.Play();

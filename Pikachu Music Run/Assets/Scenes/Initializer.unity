@@ -461,6 +461,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98dc9fb0bbc6f3743828c4ebf33b947c, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &1555220448 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114309384592503108, guid: ac7d72daf498c3247840a19e74f08fa7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1654711652}
+  m_Script: {fileID: 11500000, guid: 5e68c6e3789ee014c86f6a6b76ea5fad, type: 3}
 --- !u!1001 &1654711652
 Prefab:
   m_ObjectHideFlags: 0
@@ -554,6 +560,21 @@ Prefab:
         type: 2}
       propertyPath: m_difficulty
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114051017907207680, guid: ac7d72daf498c3247840a19e74f08fa7,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1555220448}
+    - target: {fileID: 114051017907207680, guid: ac7d72daf498c3247840a19e74f08fa7,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoBackToMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 114051017907207680, guid: ac7d72daf498c3247840a19e74f08fa7,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac7d72daf498c3247840a19e74f08fa7, type: 2}
