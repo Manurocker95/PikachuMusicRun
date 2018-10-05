@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using PikachuMusicRun.Game;
 
 namespace PikachuMusicRun.Menu
 {
@@ -29,6 +30,7 @@ namespace PikachuMusicRun.Menu
         [SerializeField] private Text m_optionsText;
         [SerializeField] private Text m_creditsText;
         [SerializeField] private Text m_exitText;
+        [SerializeField] private Text m_difficultyText;
 
         [Header("EventSystem"), Space(10)]
         [SerializeField] private EventSystem m_eventSystem;
@@ -46,6 +48,9 @@ namespace PikachuMusicRun.Menu
             TranslateTexts();
             StartAllListeners();
         }
+        /// <summary>
+        /// Just event system and change difficulty stuff
+        /// </summary>
         private void Update()
         {
             if (m_state == MENU_STATE.PRESS_START)
@@ -62,6 +67,26 @@ namespace PikachuMusicRun.Menu
                 if (m_eventSystem.currentSelectedGameObject == null && (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow)))
                 {
                     m_eventSystem.SetSelectedGameObject(m_newGameText.transform.parent.gameObject);
+                }
+
+                if (Input.GetKeyDown(KeyCode.Keypad1) && PMR_GameManager.Instance.Difficulty != DIFICULTY.EASY)
+                {
+                    PMR_GameManager.Instance.ChangeDifficulty(DIFICULTY.EASY);
+                    m_difficultyText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.DIFFICULTY) + PMR_TextManager.GetText(PMR_GameManager.Instance.Difficulty.ToString());
+                }
+
+
+                if (Input.GetKeyDown(KeyCode.Keypad2) && PMR_GameManager.Instance.Difficulty != DIFICULTY.MID)
+                {
+                    PMR_GameManager.Instance.ChangeDifficulty(DIFICULTY.MID);
+                    m_difficultyText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.DIFFICULTY) + PMR_TextManager.GetText(PMR_GameManager.Instance.Difficulty.ToString());
+                }
+
+
+                if (Input.GetKeyDown(KeyCode.Keypad3) && PMR_GameManager.Instance.Difficulty != DIFICULTY.DIFFICULT)
+                {
+                    PMR_GameManager.Instance.ChangeDifficulty(DIFICULTY.DIFFICULT);
+                    m_difficultyText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.DIFFICULTY) + PMR_TextManager.GetText(PMR_GameManager.Instance.Difficulty.ToString());
                 }
             }
         }
@@ -81,7 +106,9 @@ namespace PikachuMusicRun.Menu
             PMR_EventManager.StartListening(PMR_EventSetup.Menu.INIT, InitMenu);
             PMR_EventManager.StartListening(PMR_EventSetup.Localization.TRANSLATE_TEXTS, TranslateTexts);
         }
-
+        /// <summary>
+        /// Stop all listeners when ended
+        /// </summary>
         void StopAllListeners()
         {
             PMR_EventManager.StopListening(PMR_EventSetup.Localization.TRANSLATE_TEXTS, TranslateTexts);
@@ -95,6 +122,7 @@ namespace PikachuMusicRun.Menu
             m_pressStartText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.PRESS_START);
             m_newGameText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.NEW_GAME);
             m_bestScoreText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.BEST_SCORE) + PlayerPrefs.GetInt(PMR_GameSetup.PlayerPrefs.BEST_SCORE, 0);
+            m_difficultyText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.DIFFICULTY) + PMR_TextManager.GetText(PMR_GameManager.Instance.Difficulty.ToString());
             //m_optionsText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.OPTIONS);
             //m_creditsText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.CREDITS);
             m_exitText.text = PMR_TextManager.GetText(PMR_TextSetup.Menu.EXIT);         
@@ -191,13 +219,17 @@ namespace PikachuMusicRun.Menu
         {
             Application.Quit();
         }
-
+        /// <summary>
+        /// Go back to the menu
+        /// </summary>
         public void GoBackToMenu()
         {
             PMR_SceneManager.LoadScene(PMR_SceneSetup.SCENES.MAIN_MENU, 1f, PMR_EventSetup.Game.GO_TO_MENU);
         }
     }
-
+    /// <summary>
+    /// Each menu state
+    /// </summary>
     public enum MENU_STATE
     {
         INIT,

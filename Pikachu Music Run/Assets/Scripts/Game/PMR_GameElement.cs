@@ -21,7 +21,7 @@ namespace PikachuMusicRun
         {
             PMR_EventManager.StartListening(PMR_EventSetup.Game.SET_VELOCITY, SetVelocity);
             PMR_EventManager.StartListening(PMR_EventSetup.Game.END_COUNTDOWN, StartTheGame);
-            PMR_EventManager.StartListening(PMR_EventSetup.Game.END_GAME, StopGame);
+            PMR_EventManager.StartListening(PMR_EventSetup.Game.SHOW_END_PANEL, StopGame);
             originalPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         }
 
@@ -29,7 +29,7 @@ namespace PikachuMusicRun
         {
             PMR_EventManager.StopListening(PMR_EventSetup.Game.SET_VELOCITY, SetVelocity);
             PMR_EventManager.StopListening(PMR_EventSetup.Game.END_COUNTDOWN, StartTheGame);
-            PMR_EventManager.StopListening(PMR_EventSetup.Game.END_GAME, StopGame);
+            PMR_EventManager.StopListening(PMR_EventSetup.Game.SHOW_END_PANEL, StopGame);
         }
 
         protected virtual void SetVelocity()

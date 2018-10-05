@@ -44,6 +44,7 @@ namespace PikachuMusicRun.Game
             if (collision.gameObject.tag == PMR_GameSetup.Tags.PLAYER)
             {
                 PMR_AudioManager.Instance.PlayNoteSFX();
+                PMR_GameManager.Instance.m_notes++;
                 PMR_GameManager.Instance.AddScore(m_score);
                 this.gameObject.SetActive(false);
             }

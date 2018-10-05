@@ -22,6 +22,7 @@ namespace PikachuMusicRun.Setup
         /// Resources/Archives/English.xml...
         /// </summary>
         public const string LOCALIZATION_FILES_PATH = "Archives";
+
         public class LoadingScreen
         {
             public const string LOADING_TEXT = "loadingText";
@@ -54,6 +55,7 @@ namespace PikachuMusicRun.Setup
             public const string BACK_TO_MENU = "backToMenuText";
             public const string PRESS_START = "pressStartText";
             public const string BEST_SCORE = "bestScoreText";
+            public const string DIFFICULTY = "difficultyText";
 
         }
     }

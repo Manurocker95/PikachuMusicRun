@@ -40,9 +40,9 @@ namespace PikachuMusicRun.Setup
 
         public static class Dificulty_Velocities
         {
-            public const int EASY = 1;
-            public const int MID = 2;
-            public const int DIFFICULT = 7;
+            public const int EASY = 7;
+            public const int MID = 10;
+            public const int DIFFICULT = 12;
         }
     }
 

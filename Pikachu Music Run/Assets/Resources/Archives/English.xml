@@ -81,4 +81,20 @@
     <Key>endText</Key>
     <Text>CONGRATULATIONS!!</Text>
   </Table1>
+ <Table1>
+    <Key>difficultyText</Key>
+    <Text>Difficulty: </Text>
+  </Table1>
+  <Table1>
+    <Key>EASY</Key>
+    <Text>Easy</Text>
+  </Table1>
+  <Table1>
+    <Key>MID</Key>
+    <Text>Mid</Text>
+  </Table1>
+  <Table1>
+    <Key>DIFFICULT</Key>
+    <Text>Hard</Text>
+  </Table1>
 </NewDataSet>

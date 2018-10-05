@@ -86,9 +86,29 @@ namespace PikachuMusicRun
         {
         }
 
+        public void FadeOutBGM(float time = 2f)
+        {
+            StartCoroutine(FadeOutCoroutine(time, m_bgmSource));
+        }
+
+        IEnumerator FadeOutCoroutine(float time = 2f, AudioSource source = null)
+        {
+            float timer = 0;
+
+            while (timer < time && source != null)
+            {
+                timer += Time.deltaTime;
+                source.volume -= Time.deltaTime;
+                yield return null;
+            }
+
+            source.volume = 0f;
+        }
+
         public void StopBGM()
         {
             m_bgmSource.Stop();
+            m_bgmSource.volume = 1f;
         }
 
         public float[] SetBGMSpectrum(int samples, DIFICULTY difficulty)

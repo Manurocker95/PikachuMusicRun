@@ -1,7 +1,7 @@
-﻿/// This code is personal and can't be used for commercial games.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               /// This code is personal and can't be used for commercial games.
 /// Non-profit projects can use it with explicit permission and credits
 /// 
-/// Made by Manuel Rodríguez Matesanz.
+/// Made by Manuel Rodr�guez Matesanz.
 /// You can contact me on GBATemp as Manurocker95, email: Manuelrodriguezmatesanz@gmail.com
 /// or even on my web: Manuelrodriguezmatesanz.com
 
@@ -61,6 +61,7 @@ namespace PikachuMusicRun.Game
         private Vector3 m_Velocity = Vector3.zero;
 
         [SerializeField] private bool m_started = false;
+        [SerializeField] private bool m_canJump = false;
 
         [Header("Events"), Space(10)]
         public UnityEvent OnLandEvent;
@@ -82,7 +83,7 @@ namespace PikachuMusicRun.Game
         {
             PMR_EventManager.StartListening(PMR_EventSetup.Game.END_COUNTDOWN, StartTheGame);
             PMR_EventManager.StartListening(PMR_EventSetup.Game.RESET, ResetTheGame);
-            PMR_EventManager.StartListening(PMR_EventSetup.Game.END_GAME, ResetTheGame);
+            PMR_EventManager.StartListening(PMR_EventSetup.Game.END_GAME, CantJump);
         }
 
         private void FixedUpdate()
@@ -120,8 +121,14 @@ namespace PikachuMusicRun.Game
             }
         }
 
+        public void CantJump()
+        {
+            m_canJump = false;
+        }
+
         void StartTheGame()
         {
+            m_canJump = true;
             m_started = true;
             m_animator.SetBool("running", true);
         }
@@ -143,3 +150,4 @@ namespace PikachuMusicRun.Game
        }
     }
 }
+                                                                                                                                                       

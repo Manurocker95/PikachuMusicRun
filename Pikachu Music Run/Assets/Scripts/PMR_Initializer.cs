@@ -16,7 +16,11 @@ namespace PikachuMusicRun
         // Use this for initialization
         void Start()
         {
+#if UNITY_WEBGL
+            PMR_SceneManager.LoadScene(PMR_SceneSetup.SCENES.MAIN_MENU, 1f, PMR_EventSetup.Menu.INIT);
+#else
             m_videoPlayer.loopPointReached += EndReached;
+#endif  
         }
         private void Update()
         {

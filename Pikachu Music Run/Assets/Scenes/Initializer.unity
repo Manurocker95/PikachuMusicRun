@@ -550,6 +550,11 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114309384592503108, guid: ac7d72daf498c3247840a19e74f08fa7,
+        type: 2}
+      propertyPath: m_difficulty
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac7d72daf498c3247840a19e74f08fa7, type: 2}
   m_IsPrefabAsset: 0
@@ -648,6 +653,11 @@ Prefab:
         type: 2}
       propertyPath: m_poolSource
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 82867698039706206, guid: de9c808416fa59947a30f554cb8dfe95,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de9c808416fa59947a30f554cb8dfe95, type: 2}

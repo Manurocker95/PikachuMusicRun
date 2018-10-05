@@ -32,7 +32,7 @@ namespace PikachuMusicRun.Game
         /// <summary>
         /// Current Difficulty
         /// </summary>
-        [SerializeField] private DIFICULTY m_difficulty = DIFICULTY.DIFFICULT;
+        [SerializeField] private DIFICULTY m_difficulty = DIFICULTY.EASY;
         /// <summary>
         /// Number of samples / Notes
         /// </summary>
@@ -79,11 +79,13 @@ namespace PikachuMusicRun.Game
         private bool m_showingEndPanel = false;
 
         [Header("Notes"), Space(10)]
-        [SerializeField] public int m_notes = 0;
-
+        public int m_notes = 0;
+        public int m_neededNotes = 0;
 
         public bool Paused { get { return m_pause; } }
-        
+        public bool Ended { get { return m_ended; } }
+        public DIFICULTY Difficulty { get { return m_difficulty; } }
+
         // Use this for initialization
         void Start()
         {
@@ -110,7 +112,7 @@ namespace PikachuMusicRun.Game
             {
                 m_timer += Time.deltaTime;
 
-                if (m_timer > m_gameLenght + m_timeThreshold || m_notes >= m_samples)
+                if (m_timer > m_gameLenght + m_timeThreshold || m_notes > 1 && m_notes >= m_neededNotes)
                 {
                     EndGame();
                 }
@@ -155,6 +157,10 @@ namespace PikachuMusicRun.Game
             PMR_SceneManager.LoadScene(PMR_SceneSetup.SCENES.MAIN_MENU, 1f, PMR_EventSetup.Menu.INIT);
         }
 
+        public void ChangeDifficulty(DIFICULTY dif)
+        {
+            m_difficulty = dif;
+        }
 
         public void EndGame()
         {
@@ -176,6 +182,8 @@ namespace PikachuMusicRun.Game
 
         public void ShowPanel()
         {
+            PMR_AudioManager.Instance.FadeOutBGM(2f);
+
             m_scoreText.gameObject.SetActive(false);
             m_showingEndPanel = true;
             m_endPanel.SetActive(true);
@@ -195,6 +203,7 @@ namespace PikachuMusicRun.Game
 
         public void ResetGame()
         {
+
             PMR_AudioManager.Instance.StopBGM();
             PMR_EventManager.TriggerEvent(PMR_EventSetup.Game.RESET);
             m_endPanel.SetActive(false);
@@ -219,6 +228,7 @@ namespace PikachuMusicRun.Game
             m_started = true;
             PMR_EventManager.TriggerEvent(PMR_EventSetup.Game.END_COUNTDOWN);
             InitSpectrum();
+            PMR_NoteSpawner.Instance.m_initialized = true;
         }
 
         public void InitSpectrum()
@@ -251,6 +261,7 @@ namespace PikachuMusicRun.Game
                 }
 
                 PMR_NoteSpawner.Instance.InstantiatePrefab(m_samplesArray[i], i);
+                m_neededNotes++;
             }
 
             PMR_EventManager.TriggerEvent(PMR_EventSetup.Game.SET_VELOCITY);
@@ -264,7 +275,6 @@ namespace PikachuMusicRun.Game
         {
             m_score += score;
             m_scoreText.text = "x" + m_score;
-            m_notes++;
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using PikachuMusicRun.Setup;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,19 +24,33 @@ namespace PikachuMusicRun.Game
         // Use this for initialization
         void Start()
         {
-           
+            PMR_EventManager.StartListening(PMR_EventSetup.Game.END_GAME, ResetManager);
+        }
 
+        void OnDestroy()
+        {
+            PMR_EventManager.StopListening(PMR_EventSetup.Game.END_GAME, ResetManager);
+        }
 
+        void ResetManager()
+        {
+            m_noteX = 0;
         }
 
         public void InstantiatePrefab(float _sampleHeight, int index)
         {
             GameObject go = (m_initialized) ? m_notes[index] : Instantiate(m_notePrefab);
             go.transform.position = new Vector3(transform.position.x - m_noteX, transform.position.y + _sampleHeight, transform.position.z);
+            go.SetActive(true);
             m_noteX += m_noteBetweenDistance;
 
             if (!m_initialized)
                 m_notes.Add(go);
+        }
+
+        public int GetNoteCount()
+        {
+            return m_notes.Count;
         }
     }
 
