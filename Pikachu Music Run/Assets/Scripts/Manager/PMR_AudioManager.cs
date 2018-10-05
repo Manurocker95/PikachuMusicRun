@@ -66,7 +66,6 @@ namespace PikachuMusicRun
 
         void StartAllListeners()
         {
-            PMR_EventManager.StartListening(PMR_EventSetup.Game.GO_TO_MENU, PlayMenuBGM);
             PMR_EventManager.StartListening(PMR_EventSetup.Game.PAUSE_GAME, CheckPause);
             PMR_EventManager.StartListening(PMR_EventSetup.Game.UNPAUSE_GAME, CheckUnPause);
         }
@@ -76,7 +75,6 @@ namespace PikachuMusicRun
         {
             if (PMR_EventManager.Instance)
             {
-                PMR_EventManager.StopListening(PMR_EventSetup.Game.GO_TO_MENU, PlayMenuBGM);
                 PMR_EventManager.StopListening(PMR_EventSetup.Game.PAUSE_GAME, CheckPause);
                 PMR_EventManager.StopListening(PMR_EventSetup.Game.UNPAUSE_GAME, CheckUnPause);
             }
@@ -198,6 +196,7 @@ namespace PikachuMusicRun
             if (m_bgmSource.isPlaying)
                 m_bgmSource.Stop();
 
+            m_bgmSource.volume = 1f;
             m_bgmSource.loop = true;
             m_bgmSource.clip = Resources.Load<AudioClip>(PMR_AudioSetup.MENU_BGM);
             m_bgmSource.Play();
