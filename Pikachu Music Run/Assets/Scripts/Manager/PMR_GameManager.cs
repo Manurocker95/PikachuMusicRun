@@ -169,7 +169,7 @@ namespace PikachuMusicRun.Game
 
         public void EndGame()
         {
-            PMR_AudioManager.Instance.StopBGM();
+            PMR_AudioManager.Instance.FadeOutBGM(2f);
 
             m_ended = true;
             int bestScore = PlayerPrefs.GetInt(PMR_GameSetup.PlayerPrefs.BEST_SCORE, 0);
@@ -187,8 +187,8 @@ namespace PikachuMusicRun.Game
 
         public void ShowPanel()
         {
-            PMR_AudioManager.Instance.FadeOutBGM(2f);
 
+            PMR_AudioManager.Instance.StopBGM();
             m_scoreText.gameObject.SetActive(false);
             m_showingEndPanel = true;
             m_endPanel.SetActive(true);
