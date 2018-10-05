@@ -242,6 +242,18 @@ namespace PikachuMusicRun.Game
 
             m_gameLenght = PMR_AudioManager.Instance.BGMLength;
 
+#if UNITY_WEBGL
+            ///Unity doesn't work with spectrum on webgl OMG
+            PMR_AudioManager.Instance.SetAudioSpeed(m_difficulty);
+            PMR_NoteSpawner.Instance.m_noteBetweenDistance = 2f;
+
+            for (int i = 0; i < m_samples; i++)
+            {
+                PMR_NoteSpawner.Instance.InstantiatePrefab(Random.Range(0, 3.2f), i);
+                m_neededNotes++;
+            }
+#else
+
             m_samplesArray = PMR_AudioManager.Instance.SetBGMSpectrum(m_samples, m_difficulty);
             string str;
             float newValue = 0f;
@@ -279,7 +291,7 @@ namespace PikachuMusicRun.Game
                     m_neededNotes++;
                 }
             }
-
+#endif
             PMR_EventManager.TriggerEvent(PMR_EventSetup.Game.SET_VELOCITY);
         }
 

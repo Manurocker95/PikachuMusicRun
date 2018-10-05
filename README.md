@@ -1,4 +1,4 @@
-# PikachuMusicRun
+# Pikachu Music Run
 
 Pokémon Gold Spaceworld 1997 Demo Minigame recreation in Unity 2018.
 
@@ -15,7 +15,7 @@ Controls:​
 
 Credits for the title screen BGM:  Best Dude55 
 
-https://i.imgur.com/Cd0C9Ai.png
+![alt text](https://i.imgur.com/Cd0C9Ai.png)
 
 ​
 

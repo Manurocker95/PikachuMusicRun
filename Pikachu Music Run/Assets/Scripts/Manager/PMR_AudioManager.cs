@@ -105,6 +105,28 @@ namespace PikachuMusicRun
             source.volume = 0f;
         }
 
+        public void SetAudioSpeed(DIFICULTY difficulty)
+        {
+            int difficultyMultiplier = 0;
+
+            switch (difficulty)
+            {
+                case DIFICULTY.EASY:
+                    difficultyMultiplier = PMR_GameSetup.Dificulty_Velocities.EASY;
+                    break;
+                case DIFICULTY.MID:
+                    difficultyMultiplier = PMR_GameSetup.Dificulty_Velocities.MID;
+                    break;
+                case DIFICULTY.DIFFICULT:
+                    difficultyMultiplier = PMR_GameSetup.Dificulty_Velocities.DIFFICULT;
+                    break;
+            }
+
+
+            m_audioSpeed = difficultyMultiplier; //(m_bgmSource.clip.length / samples) * difficultyMultiplier * m_bgmSource.pitch;
+
+        }
+
         public void StopBGM()
         {
             m_bgmSource.Stop();
